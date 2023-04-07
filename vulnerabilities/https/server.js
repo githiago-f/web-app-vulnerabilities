@@ -2,12 +2,16 @@ import http from 'http';
 import https from 'https';
 import { readFileSync } from 'fs';
 import app from './app.js';
+import url from 'url';
+import path from 'path';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const httpServer = http.createServer(app);
 
 const options = {
-    key: readFileSync('./key.pem'),
-    cert: readFileSync('./cert.pem')
+    key: readFileSync(path.join(__dirname, 'key.pem')),
+    cert: readFileSync(path.join(__dirname, 'cert.pem'))
 };
 
 const httpsServer = https.createServer(options, app);
