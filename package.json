@@ -1,11 +1,12 @@
 {
   "name": "web-app-vulnerabilities",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web applications to understand more about technical vulnerabilities on systems",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "https-server": "node ./002-vulnerabilities/003-https/server.js"
+    "https-server": "node ./002-vulnerabilities/003-https/server.js",
+    "encrypt-server": "node ./002-vulnerabilities/002-encrypt/app.js"
   },
   "keywords": [
     "security",
@@ -26,6 +27,7 @@
     "mysql2": "^3.2.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pug": "^3.0.2",
     "sqlite3": "^5.1.6"
   }
 }

@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Asymetric encription
+        script(src="/js/encrypt.js") 
+    body
+        div(style="display: flex; flex-wrap: wrap; justify-content: space-around;")
+            div(style="max-width: 600px")
+                h1 Generate keys with type
+                form(action="/asymetric/genkey", method="get")
+                    if keyName
+                        input(hidden, name="keyName", value=keyName)
+                    input(name="type", value="rsa", hidden)
+                    input#modulus_value(type="number", name="modulus", value="4096")
+                    button(type="submit") Generate keys
+                
+                if publicKey
+                    textarea#public_key(style="width:100%;") #{publicKey}
+            div(style="max-width: 600px")
+                h1 Encrypt message with public key (client side)
+                textarea#to_encrypt(name="message", cols="30", rows="10",style="width:100%;") 
+                button(onclick='encryptText()') Encrypt
+            div(style="max-width: 600px")
+                h1 Decrypt message with private (server) key
+                form(action="/asymetric/private-decrypt", method="post")
+                    input(hidden, name="keyName", value=keyName)
+                    div(style="display: flex; flex-direction: column")
+                        label(for="enc_message") Encrypted message
+                        textarea#enc_message(name="text", cols="30", rows="10",style="width:100%;")
+                    button(type="submit") Decrypt with private key
+                if decripted
+                    div(style="display: flex; flex-direction: column")
+                        label Result:
+                        pre #{decripted}
