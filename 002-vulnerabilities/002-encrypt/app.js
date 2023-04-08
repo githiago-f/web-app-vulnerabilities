@@ -5,7 +5,8 @@ import {
     publicDecrypt,
     privateDecrypt,
     privateEncrypt,
-    randomUUID
+    randomUUID,
+    createHash
 } from 'node:crypto';
 import express from 'express';
 import * as url from 'url';
@@ -91,7 +92,14 @@ app.post('/asymetric/private-decrypt', (req, res) => {
     });
 });
 
-app.post('/simetric', (req, res) => {});
+app.get('/simetric/hash', page('simetric'));
+
+app.post('/simetric/hash', (req, res) => {
+    const data = createHash('sha256')
+        .update(req.body.text)
+        .digest('base64');
+    res.render('simetric', { encripted: data });
+});
 
 app.listen(8080, '0.0.0.0', () => {
     console.log('Encription service running on port: 8080');
